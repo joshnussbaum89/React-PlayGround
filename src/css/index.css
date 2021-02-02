@@ -1,0 +1,22 @@
+body {
+  font: 14px "Century Gothic", Futura, sans-serif;
+  font-size: 2rem;
+  margin: 20px;
+}
+
+.container {
+  text-align: center;
+}
+
+.partyBtn {
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+}
+
+.partyBtn:active {
+  transform: scale(1.08);
+}
