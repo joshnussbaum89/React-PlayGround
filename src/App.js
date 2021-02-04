@@ -1,55 +1,51 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Container from './components/Container'
 
-class App extends React.Component {
+class App extends Component {
     state = {
-        count: 0,
-        isOn: false
+        isOn: false,
+        elapsedTime: 0,
+        previousTime: 0
     }
 
-    handleIncrement = (e) => {
-        e.preventDefault();
-        this.setState({
-            isOn: true
-        })
+    componentDidMount() {
+        this.timer = setInterval(() => this.handleIncrement(), 100);
+    }
 
-        this.timer = setInterval(() => {
+    handleIncrement = () => {
+        if (this.state.isOn) {
+            const now = Date.now();
+
+            this.setState(prevState => ({
+                previousTime: now,
+                elapsedTime: prevState.elapsedTime + (now - this.state.previousTime)
+            }))
+        }
+    }
+
+    handleStopwatch = () => {
+        this.setState(prevState => ({
+            isOn: !prevState.isOn
+        }));
+
+        if (!this.state.isOn) {
             this.setState({
-                count: this.state.count + 1
+                previousTime: Date.now()
             })
-        }, 1000)
+        }
     }
 
-    handleDecrement = (e) => {
-        e.preventDefault();
+    handleReset = () => {
         this.setState({
-            isOn: true
-        })
-
-        clearInterval(this.handleDecrement);
-        this.timer = setInterval(() => {
-            this.setState({
-                count: this.state.count - 1
-            })
-        }, 1000)
+            elapsedTime: 0
+        });
     }
 
-    resetIncrement = (e) => {
+    onTimerChange = e => {
         e.preventDefault();
-
         this.setState({
-            count: 0
-        })
-    }
-
-    clearTimer = (e) => {
-        e.preventDefault();
-        clearInterval(this.timer)
-
-        this.setState({
-            count: 0,
-            isOn: false
-        })
+            counter: 0
+        });
     }
 
     render() {
@@ -57,11 +53,10 @@ class App extends React.Component {
             <>
                 <Container
                     isOn={this.state.isOn}
-                    counter={this.state.count}
-                    handleIncrement={this.handleIncrement}
-                    handleDecrement={this.handleDecrement}
-                    resetIncrement={this.resetIncrement}
-                    clearTimer={this.clearTimer}
+                    counter={this.state.elapsedTime}
+                    handleStopwatch={this.handleStopwatch}
+                    handleReset={this.handleReset}
+                    handleTimerChange={this.onTimerChange}
                 />
             </>
         )

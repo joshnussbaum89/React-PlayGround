@@ -1,23 +1,21 @@
 import Counter from './Counter';
 
 const Container = ({
-    handleIncrement,
-    handleDecrement,
-    resetIncrement,
+    handleTimerChange,
+    handleStopwatch,
+    handleReset,
     counter,
-    isOn,
-    clearTimer
+    isOn
 }) => {
     return (
         <div className='container'>
             <h1>The Final Countdown</h1>
             <Counter
-                isOn={isOn}
+                handleTimerChange={handleTimerChange}
+                handleStopwatch={handleStopwatch}
+                handleReset={handleReset}
                 counter={counter}
-                handleIncrement={handleIncrement}
-                handleDecrement={handleDecrement}
-                resetIncrement={resetIncrement}
-                clearTimer={clearTimer}
+                isOn={isOn}
             />
         </div>
     )

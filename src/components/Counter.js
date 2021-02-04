@@ -1,24 +1,26 @@
-import React from 'react';
-
 const Counter = ({
-    handleIncrement,
-    handleDecrement,
-    resetIncrement,
+    handleTimerChange,
+    handleStopwatch,
+    handleReset,
     counter,
-    isOn,
-    clearTimer
+    isOn
 }) => {
-    return (<form className='form'>
-        <label>Timer Starting Point</label>
-        <input type='text' placeholder='Enter number' className='countdown-input' />
-        <p>{counter}</p>
-        <div>
-            <button className='btn' onClick={handleIncrement}>Increase Timer</button>
-            <button className='btn' onClick={handleDecrement}>Decrease Timer</button>
-            <button className='btn' onClick={resetIncrement}>Reset Timer</button>
-            <button className='btn' onClick={clearTimer}>Clear Timer</button>
+    let seconds = Math.floor(counter / 1000);
+    return (
+        <div className='form' >
+            <label>Timer Starting Point</label>
+            <div className='form-div'>
+                <input type='text' placeholder='Enter number' className='form-input' />
+                <button className='btn-submit' onClick={handleTimerChange}>Submit</button>
+            </div>
+            <p>{seconds}</p>
+            <div>
+                <button className='btn' onClick={handleStopwatch}>{(isOn) ? 'Pause Timer' : 'Start Timer'}</button>
+                <button className='btn' onClick={handleReset}>Reset Timer</button>
+            </div>
         </div>
-    </form>);
+    );
+
 }
 
 export default Counter
